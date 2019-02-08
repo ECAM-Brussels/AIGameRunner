@@ -19,6 +19,7 @@
   "homepage": "https://github.com/qlurkin/IAGameRunner#readme",
   "dependencies": {
     "express": "^4.16.4",
+    "immutable": "^4.0.0-rc.12",
     "lit-html": "^1.0.0",
     "morgan": "^1.9.1",
     "redux": "^4.0.1",

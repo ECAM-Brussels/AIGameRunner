@@ -11,7 +11,7 @@ const mainTemplate = state => html`
 			</div>
 		</header>
 		<main class="mdc-top-app-bar--fixed-adjust">
-			Compteur: ${state}
+			Compteur: ${state} 
 		</main>
 	</div>
 `

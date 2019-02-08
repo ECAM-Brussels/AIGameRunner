@@ -1,21 +1,59 @@
-import { createStore } from '/modules/redux/es/redux.mjs'
-import { Immutable } from '/modules/immutable/dist/immutable.es.js'
+import { createStore, applyMiddleware  } from '/modules/redux/es/redux.mjs'
+import { participants } from './participants.js'
+import { errors } from './errors.js'
+import { Map } from '/modules/immutable/dist/immutable.es.js'
 
-// Reducer
-function counter(state = 0, action) {
-	switch (action.type) {
-		case 'INCREMENT':
-			return state + 1
-		case 'DECREMENT':
-			return state - 1
-		default:
-			return state
+// Logger Middleware
+const logger = store => next => action => {
+	console.group(action.type)
+	console.info('dispatching', action)
+	const result = next(action)
+	console.log('next state', store.getState().toJS())
+	console.groupEnd()
+	return result
+}
+
+// Crash Reporter Middleware
+const crashReporter = store => next => action => {
+	try {
+		return next(action)
+	}
+	catch (err) {
+		console.error('Caught an exception!', err)
+		Raven.captureException(err, {
+			extra: {
+				action,
+				state: store.getState()
+			}
+		})
+		throw err
 	}
 }
 
-const store = createStore(counter)
+/**
+ * Lets you dispatch a function instead of an action.
+ * This function will receive `dispatch` and `getState` as arguments.
+ *
+ * Useful for early exits (conditions over `getState()`), as well
+ * as for async control flow (it can `dispatch()` something else).
+ *
+ * `dispatch` will return the return value of the dispatched function.
+ */
+const thunk = store => next => action =>
+	typeof action === 'function'
+		? action(store.dispatch, store.getState)
+		: next(action)
 
-store.subscribe(() => console.log(store.getState()))
+// Reducer
+const reducer = (state = Map(), action) => {
+	return Map({
+		participants: participants(state.get('participants'), action),
+		errors: errors(state.get('errors'), action)
+	})
+}
+
+const store = createStore(reducer, applyMiddleware(thunk, logger, crashReporter))
+
 store.subscribe(() => localStorage.setItem('state', JSON.stringify(store.getState())))
 
 export default store

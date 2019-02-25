@@ -10,9 +10,14 @@ const mainTemplate = state => html`
 				</section>
 			</div>
 		</header>
-		<main class="mdc-top-app-bar--fixed-adjust">
-			Compteur: ${state} 
-		</main>
+		<div id="mainRow" class="mdc-top-app-bar--fixed-adjust">
+			<aside class="mdc-elevation--z4">
+
+			</aside>
+			<main>
+				Compteur: ${state} 
+			</main>
+		</div>
 	</div>
 `
 

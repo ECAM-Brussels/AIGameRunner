@@ -1,3 +1,31 @@
+* {
+	box-sizing: border-box;
+}
+
+html, body, #container, #slot, #mainRow {
+	height: 100%;
+}
+
 body {
 	margin: 0;
+}
+
+#mainRow {
+	display: flex;
+	justify-content: space-between;
+	align-items: stretch;
+}
+
+aside {
+	width: 20em;
+	flex-grow: 0;
+	flex-shrink: 0;
+	background-color: white;
+}
+
+main {
+	flex-grow: 1;
+	flex-shrink: 0;
+	background-color: #f2f2f2;
+	padding: 1em;
 }

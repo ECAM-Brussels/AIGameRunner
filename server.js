@@ -22,9 +22,9 @@ app.use((req, res) => {
 
 // Error Handler
 app.use((err, req, res, next) => {
-	console.log(err);
+	console.log(err)
 })
 
-var port = Number(process.env.PORT || 3000);
-app.listen(port);
-console.log('Magic happens on port ' + port);
+var port = Number(process.env.PORT || 3000)
+app.listen(port)
+console.log('Magic happens on port ' + port)

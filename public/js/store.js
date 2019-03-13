@@ -52,8 +52,6 @@ const reducer = (state = Map(), action) => {
 	})
 }
 
-const store = createStore(reducer, applyMiddleware(thunk, logger, crashReporter))
+export const store = createStore(reducer, applyMiddleware(thunk, logger, crashReporter))
 
 store.subscribe(() => localStorage.setItem('state', JSON.stringify(store.getState())))
-
-export default store

@@ -1,7 +1,7 @@
-import store from './store.js'
+import {store} from '/js/store.js'
 import {render} from '/modules/lit-html/lit-html.js'
-import mainTemplate from './mainTemplate.js'
-import {addParticipant, removeParticipant} from './participants.js'
+import {mainTemplate} from '/js/mainTemplate.js'
+import {addParticipant, removeParticipant} from '/js/participants.js'
 
 document.addEventListener("DOMContentLoaded", event => {
 	//DOM fully loaded and parsed
@@ -10,6 +10,6 @@ document.addEventListener("DOMContentLoaded", event => {
 
 	store.dispatch(addParticipant('LUR', '1', '1'))
 	store.dispatch(addParticipant('CBF', '2', '1'))
-	store.dispatch(addParticipant('LUR', '3', '1'))
-	store.dispatch(removeParticipant("LUR"))
+	store.dispatch(addParticipant('LRG', '3', '1'))
+	store.dispatch(addParticipant('DKP', '4', '1'))
 })

@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/qlurkin/IAGameRunner#readme",
   "dependencies": {
+    "@material/switch": "^1.0.0",
     "express": "^4.16.4",
     "immutable": "^4.0.0-rc.12",
     "lit-html": "^1.0.0",

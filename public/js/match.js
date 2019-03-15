@@ -39,7 +39,6 @@ export const requestMove = () => (dispatch, getState) =>{
 }
 
 export const matchReducer = (state = null, action) => {
-    //if(state === null) return null
     switch (action.type) {
         case 'START_MATCH':
             if(state === null) {
@@ -64,7 +63,7 @@ export const matchReducer = (state = null, action) => {
     }
 }
 
-const runMatch = (p1, p2) => (dispatch, getState) => {
+export const runMatch = (p1, p2) => (dispatch, getState) => {
     const next = () => {
         if(!gameOver(getState().get('match').get('game'))) {
             dispatch(requestMove()).then(next)

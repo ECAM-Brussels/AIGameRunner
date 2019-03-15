@@ -17,4 +17,8 @@ export const gameReducer = (state, action) => {
     }
 
     return state
-} 
+}
+
+export const gameOver = (state) => {
+    return state === 0
+}

@@ -42,66 +42,7 @@ export const mainTemplate = state => html`
 	</div>
 	<div id="fabs">
 		<button class="mdc-fab" aria-label="Add" @click="${() => {store.dispatch(addParticipant("MLT", 1, 1))}}">
-			<span class="mdc-fab__icon material-icons">add</span>
+			<span class="mdc-fab__icon material-icons">play_arrow</span>
 		</button>
 	</div>
-	<div class="mdc-dialog" role="alertdialog" aria-modal="true" aria-labelledby="my-dialog-title" aria-describedby="my-dialog-content">
-		<div class="mdc-dialog__container">
-			<div class="mdc-dialog__surface">
-				<!-- Title cannot contain leading whitespace due to mdc-typography-baseline-top() -->
-				<h2 class="mdc-dialog__title" id="my-dialog-title">Add Participant</h2>
-				<div class="mdc-dialog__content" id="my-dialog-content">
-					<div>
-						<div class="mdc-text-field mdc-text-field--outlined mdc-text-field--focused">
-							<input type="text" id="add-participant-name" class="mdc-text-field__input">
-							<div class="mdc-notched-outline mdc-notched-outline--notched">
-								<div class="mdc-notched-outline__leading"></div>
-									<div class="mdc-notched-outline__notch">
-										<label for="add-participant-name" class="mdc-floating-label mdc-floating-label--float-above">Name</label>
-									</div>
-								<div class="mdc-notched-outline__trailing"></div>
-							</div>
-						</div>
-					</div>
-					<div>
-						<div class="mdc-text-field mdc-text-field--outlined mdc-text-field--focused">
-							<input type="text" id="add-participant-ip" class="mdc-text-field__input">
-							<div class="mdc-notched-outline mdc-notched-outline--notched">
-								<div class="mdc-notched-outline__leading"></div>
-									<div class="mdc-notched-outline__notch">
-										<label for="add-participant-ip" class="mdc-floating-label mdc-floating-label--float-above">IP</label>
-									</div>
-								<div class="mdc-notched-outline__trailing"></div>
-							</div>
-						</div>
-					</div>
-					<div>
-						<div class="mdc-text-field mdc-text-field--outlined mdc-text-field--focused">
-							<input type="text" id="add-participant-port" class="mdc-text-field__input">
-							<div class="mdc-notched-outline mdc-notched-outline--notched">
-								<div class="mdc-notched-outline__leading"></div>
-									<div class="mdc-notched-outline__notch">
-										<label for="add-participant-port" class="mdc-floating-label mdc-floating-label--float-above">Port</label>
-									</div>
-								<div class="mdc-notched-outline__trailing"></div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<footer class="mdc-dialog__actions">
-					<button type="button" class="mdc-button mdc-dialog__button" data-mdc-dialog-action="yes" @click="${() => {
-						const name = document.getElementById('add-participant-name').value
-						const ip = document.getElementById('add-participant-ip').value
-						const port = document.getElementById('add-participant-port').value
-						store.dispatch(addParticipant(name, ip, port))
-						document.getElementById('add-participant-name').value = ""
-						document.getElementById('add-participant-ip').value = ""
-						document.getElementById('add-participant-port').value = ""
-					}}">
-						<span class="mdc-button__label">OK</span>
-					</button>
-				</footer>
-			</div>
-		</div>
-	<div class="mdc-dialog__scrim"></div>
 `

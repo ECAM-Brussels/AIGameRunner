@@ -34,6 +34,16 @@ main {
 
 .row {
 	display: flex;
+	align-items: flex-start;
+}
+
+.row > * {
+	margin-right: 1em;
+	flex-grow: 1;
+}
+
+.row > :last-child {
+	margin-right: 0;
 }
 
 #fabs {
@@ -50,9 +60,12 @@ main {
 	margin-bottom: 0;
 }
 
-#add-participant-form {
+#add-participant-form, #participantList, #matchList {
 	background-color: white;
 	margin-bottom: 1rem;
+}
+
+#add-participant-form {
 	padding: 1rem;
 	display: flex;
 	align-items: center;
@@ -62,4 +75,8 @@ main {
 
 #add-participant-form > mdc-text-field {
 	flex-shrink: 0;
+}
+
+#matchList li {
+	height: 5em;
 }

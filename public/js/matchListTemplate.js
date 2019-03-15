@@ -2,12 +2,14 @@ import {html} from '/modules/lit-html/lit-html.js'
 import {match} from '/js/match.js'
 
 export const matchListTemplate = participants => html`
-	<div id="matchList">
+	<ul id="matchList" class="mdc-list mdc-elevation--z4">
         ${match(participants).map(match => html`
-            <div>
-                <div>${match.get(0)}</div>
-                <div>${match.get(1)}</div>
-            </div>
+            <li class="mdc-list-item">
+                <span class="mdc-list-item__text">
+                    ${match.get(0)}<br>
+					${match.get(1)}
+				</span>
+            </li>
         `).toArray()}
-	</div>
+    </ul>
 `

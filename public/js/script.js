@@ -8,8 +8,6 @@ document.addEventListener("DOMContentLoaded", event => {
 
 	store.subscribe(() => {render(mainTemplate(store.getState()), document.getElementById('slot'))})
 
-	store.dispatch(addParticipant('LUR', '1', '1'))
-	store.dispatch(addParticipant('CBF', '2', '1'))
-	store.dispatch(addParticipant('LRG', '3', '1'))
-	store.dispatch(addParticipant('DKP', '4', '1'))
+	store.dispatch(addParticipant('LUR', 'localhost', '8080'))
+	store.dispatch(addParticipant('CBF', 'localhost', '8081'))
 })

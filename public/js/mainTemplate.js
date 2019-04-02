@@ -41,7 +41,7 @@ export const mainTemplate = state => html`
 		</main>
 	</div>
 	<div id="fabs">
-		<button class="mdc-fab" aria-label="Add" @click="${() => {store.dispatch(addParticipant("MLT", 1, 1))}}">
+		<button class="mdc-fab" aria-label="Add" @click="${() => {}}">
 			<span class="mdc-fab__icon material-icons">play_arrow</span>
 		</button>
 	</div>

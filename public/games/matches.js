@@ -1,6 +1,7 @@
 const getRandomInt = (max) => Math.floor(Math.random() * Math.floor(max));  
 
 export const isValidMove = (move, state) => {
+    if(typeof move !== 'number') return false
     if(move < 1) return false
     if(move > 3) return false
     if(move > state) return false
@@ -10,6 +11,7 @@ export const isValidMove = (move, state) => {
 export const gameReducer = (state, action) => {
     if(state === undefined) {
         state = getRandomInt(5) + 10
+        return state
     }
 
     if(action.type === 'PLAY_MOVE') {

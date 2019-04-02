@@ -1,6 +1,7 @@
 import { gameReducer, isValidMove, gameOver } from '/games/matches.js'
 import { List, Map } from '/modules/immutable/dist/immutable.es.js';
-import { addError } from '/js/error.js'
+import { addError } from '/js/errors.js'
+import { addResult } from '/js/matchList.js'
 
 export const playMove = (move) => {
     return {
@@ -29,12 +30,13 @@ export const requestMove = () => (dispatch, getState) =>{
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify(state)
+        body: JSON.stringify({game: state.game, moves: state.moves})
     })
     .then(response => response.json())
-    .then(move => {
-        if(isValidMove(move)) dispatch(playMove(move))
-        else dispatch(addError("Invalid Move"))
+    .then(json => {
+        const move = json.move
+        if(isValidMove(move, getState())) dispatch(playMove(move))
+        else dispatch(addError(`Invalid Move: ${JSON.stringify(move)}`))
     })
 }
 
@@ -65,11 +67,15 @@ export const matchReducer = (state = null, action) => {
 
 export const runMatch = (p1, p2) => (dispatch, getState) => {
     const next = () => {
-        if(!gameOver(getState().get('match').get('game'))) {
+        const match = getState().get('match')
+        if(!gameOver(match.get('game'))) {
             dispatch(requestMove()).then(next)
         }
+        else {
+            dispatch(addResult(match.get('players'), (match.get('player') + 1) % 2))
+        }
     }
-
+    console.log(p1.toJS(), p2.toJS())
     dispatch(startMatch(p1, p2))
     next()
 }

@@ -2,6 +2,8 @@ import { createStore, applyMiddleware  } from '/modules/redux/es/redux.mjs'
 import { participants } from './participants.js'
 import { errors } from './errors.js'
 import { Map } from '/modules/immutable/dist/immutable.es.js'
+import { matchReducer } from '/js/match.js'
+import { results } from '/js/matchList.js'
 
 // Logger Middleware
 const logger = store => next => action => {
@@ -48,7 +50,9 @@ const thunk = store => next => action =>
 const reducer = (state = Map(), action) => {
 	return Map({
 		participants: participants(state.get('participants'), action),
-		errors: errors(state.get('errors'), action)
+		errors: errors(state.get('errors'), action),
+		match: matchReducer(state.get('match'), action),
+		results: results(state.get('results'), action)
 	})
 }
 

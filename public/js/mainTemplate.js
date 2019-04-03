@@ -10,7 +10,7 @@ export const mainTemplate = state => html`
 		<div class="mdc-top-app-bar__row">
 			<section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-start">
 				<a href="#" class="material-icons mdc-top-app-bar__navigation-icon">menu</a>
-				<span class="mdc-top-app-bar__title">IA Game Runner</span>
+				<span class="mdc-top-app-bar__title">AI Game Runner</span>
 			</section>
 		</div>
 	</header>

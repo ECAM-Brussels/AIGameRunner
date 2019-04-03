@@ -15,23 +15,6 @@ const logger = store => next => action => {
 	return result
 }
 
-// Crash Reporter Middleware
-const crashReporter = store => next => action => {
-	try {
-		return next(action)
-	}
-	catch (err) {
-		console.error('Caught an exception!', err)
-		Raven.captureException(err, {
-			extra: {
-				action,
-				state: store.getState()
-			}
-		})
-		throw err
-	}
-}
-
 /**
  * Lets you dispatch a function instead of an action.
  * This function will receive `dispatch` and `getState` as arguments.
@@ -56,6 +39,6 @@ const reducer = (state = Map(), action) => {
 	})
 }
 
-export const store = createStore(reducer, applyMiddleware(thunk, logger, crashReporter))
+export const store = createStore(reducer, applyMiddleware(thunk, logger))
 
 store.subscribe(() => localStorage.setItem('state', JSON.stringify(store.getState())))

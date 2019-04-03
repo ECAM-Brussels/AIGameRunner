@@ -1,6 +1,9 @@
 const getRandomInt = (max) => Math.floor(Math.random() * Math.floor(max));  
 
-export const isValidMove = (move, state) => {
+export const isValidMove = (state, action) => {
+    const move = action.move
+    state = state.get('game')
+
     if(typeof move !== 'number') return false
     if(move < 1) return false
     if(move > 3) return false
@@ -9,18 +12,27 @@ export const isValidMove = (move, state) => {
 }
 
 export const gameReducer = (state, action) => {
-    if(state === undefined) {
-        state = getRandomInt(5) + 10
-        return state
-    }
 
-    if(action.type === 'PLAY_MOVE') {
-        state -= action.move
+    switch(action.type) {
+        case 'START_MATCH':
+            state = state.set('game', getRandomInt(5) + 10)
+            break;
+
+        case 'PLAY_MOVE':
+            const n = state.get('game') - action.move
+
+            const winner = n === 0 ? action.player : undefined
+
+            const players = state.get('players')
+            const playerIndex = players.indexOf(action.player)
+            const nextPlayer = n === 0 ? undefined : players.get((playerIndex + 1) % players.count())
+
+            state = state
+            .set('game', n)
+            .set('player', nextPlayer)
+            .set('winner', winner)
+            break;
     }
 
     return state
-}
-
-export const gameOver = (state) => {
-    return state === 0
 }

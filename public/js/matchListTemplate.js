@@ -14,7 +14,7 @@ export const matchListTemplate = participants => html`
                 <span class="mdc-list-item__meta material-icons" style="cursor: pointer" @click="${() => {
                     const state = store.getState()
                     const participants = state.get('participants')
-                    store.dispatch(runMatch(participants.get(match.get(0)), participants.get(match.get(1))))
+                    store.dispatch(runMatch(match.get(0), match.get(1)))
                 }}">play_arrow</span>
             </li>
         `).toArray()}

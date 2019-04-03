@@ -11,25 +11,17 @@ export const matchList = participants => {
     return List(res)
 }
 
-export const addResult = (players, winner) => {
-    winner = players.get(winner)
-    players = players.sort()
-    const key = players.map(player => player.get('name')).join("<vs>")
+export const addResult = (match) => {
+    match = match.delete('player')
     return {
         type: 'ADD_RESULT',
-        key,
-        winner
+        match
     }
 }
 
-export const results = (state = Map(), action) => {
+export const results = (state = List(), action) => {
     if(action.type === "ADD_RESULT") {
-        if(state.has(action.key)) {
-            state = state.get(action.key).push(action.winner)
-        }
-        else {
-            state = state.set(action.key, List.of(action.winner))
-        }
+        state = state.push(action.match)
     }
 
     return state

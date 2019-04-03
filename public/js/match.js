@@ -1,12 +1,13 @@
-import { gameReducer, isValidMove, gameOver } from '/games/matches.js'
+import { gameReducer, isValidMove } from '/games/matches.js'
 import { List, Map } from '/modules/immutable/dist/immutable.es.js';
 import { addError } from '/js/errors.js'
 import { addResult } from '/js/matchList.js'
 
-export const playMove = (move) => {
+export const playMove = (move, player) => {
     return {
         type: 'PLAY_MOVE',
-        move
+        move,
+        player
     }
 }
 
@@ -17,12 +18,19 @@ export const startMatch = (p1, p2) => {
     }
 }
 
+export const clearMatch = () => {
+    return {
+        type: 'CLEAR_MATCH'
+    }
+}
+
 export const requestMove = () => (dispatch, getState) =>{
     const _state = getState().get('match')
+    const participants = getState().get('participants')
     if(_state === null) return
 
     const state = _state.toJS()
-    const player = state.players[state.player]
+    const player = participants.get(state.player).toJS()
     const url = `http://${player.ip}:${player.port}/move`
 
     return fetch(url, {
@@ -30,52 +38,72 @@ export const requestMove = () => (dispatch, getState) =>{
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({game: state.game, moves: state.moves})
+        body: JSON.stringify({
+            game: state.game,
+            moves: state.moves,
+            players: state.players,
+            you: state.player
+        })
     })
     .then(response => response.json())
     .then(json => {
         const move = json.move
-        if(isValidMove(move, getState())) dispatch(playMove(move))
-        else dispatch(addError(`Invalid Move: ${JSON.stringify(move)}`))
+        const action = playMove(move, state.player)
+        if(isValidMove(_state, action)) dispatch(action)
+        else dispatch(addError(`Invalid Move: ${JSON.stringify(action)}`))
     })
 }
 
-export const matchReducer = (state = null, action) => {
+export const matchReducer = (state = undefined, action) => {
     switch (action.type) {
         case 'START_MATCH':
-            if(state === null) {
-                return Map({
-                    game: gameReducer(),
+            if(state === undefined) {
+                state = Map({
+                    game: undefined,
                     moves: List(),
                     players: List(action.players),
-                    player: 0
+                    player: action.players[0],
+                    winner: undefined
                 })
             }
-            return state
+            break;
+
         case 'PLAY_MOVE':
             if(state) {
-                return Map({
-                    game: gameReducer(state.get('game'), action),
-                    moves: state.get('moves').push(action.move),
+                state = Map({
+                    game: state.get('game'),
+                    moves: state.get('moves').push(Map({move: action.move, player: action.player, gameBefore: state.get('game')})),
                     players: state.get('players'),
-                    player: (state.get('player') + 1) % 2
+                    player: state.get('player'),
+                    winner: state.get('winner')
                 })
             }
-            return state
+            break;
+        
+        case 'CLEAR_MATCH':
+            state = undefined
+            break;
     }
+    state = gameReducer(state, action)
+    return state
 }
 
 export const runMatch = (p1, p2) => (dispatch, getState) => {
     const next = () => {
         const match = getState().get('match')
-        if(!gameOver(match.get('game'))) {
-            dispatch(requestMove()).then(next)
+        if(match.get('winner') === undefined) {
+            dispatch(requestMove())
+            .then(next)
+            .catch(err => {
+                dispatch(addError(`Request Move Error: ${err}`))
+            })
         }
         else {
-            dispatch(addResult(match.get('players'), (match.get('player') + 1) % 2))
+            dispatch(addResult(match))
+            dispatch(clearMatch())
         }
     }
-    console.log(p1.toJS(), p2.toJS())
+    
     dispatch(startMatch(p1, p2))
     next()
 }

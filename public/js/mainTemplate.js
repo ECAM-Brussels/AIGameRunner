@@ -4,13 +4,15 @@ import {matchListTemplate} from '/js/matchListTemplate.js'
 import {addParticipant} from '/js/participants.js'
 import {store} from '/js/store.js'
 import '/js/mdcTextField.js'
+import { gameDialogTemplate } from '/js/gameDialogTemplate.js';
+import { gameName } from '/games/current.js'
 
 export const mainTemplate = state => html`
 	<header class="mdc-top-app-bar">
 		<div class="mdc-top-app-bar__row">
 			<section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-start">
 				<a href="#" class="material-icons mdc-top-app-bar__navigation-icon">menu</a>
-				<span class="mdc-top-app-bar__title">AI Game Runner</span>
+				<span class="mdc-top-app-bar__title">AI Game Runner: ${gameName}</span>
 			</section>
 		</div>
 	</header>
@@ -45,4 +47,5 @@ export const mainTemplate = state => html`
 			<span class="mdc-fab__icon material-icons">play_arrow</span>
 		</button>
 	</div>
+	${gameDialogTemplate(state.get('match'))}
 `

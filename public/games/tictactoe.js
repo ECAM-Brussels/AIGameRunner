@@ -64,9 +64,7 @@ export const gameReducer = (state, action) => {
                 winner = null
             }
 
-            console.log(winner)
             winner = typeof winner === 'number' ? players.get(winner) : winner
-            console.log(winner)
 
             const nextPlayer = winner !== undefined ? undefined : players.get((playerIndex + 1) % players.count())
 

@@ -94,7 +94,7 @@ export const runMatch = (p1, p2) => (dispatch, getState) => {
         if(match.get('winner') === undefined) {
             dispatch(requestMove())
             .then(() => {
-                setTimeout(next, 2000)
+                setTimeout(next, 1000)
             })
             .catch(err => {
                 console.error(err)

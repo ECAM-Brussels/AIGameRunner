@@ -1,4 +1,4 @@
-import { gameReducer, isValidMove } from '/games/matches.js'
+import { gameReducer, isValidMove } from '/games/current.js'
 import { List, Map } from '/modules/immutable/dist/immutable.es.js';
 import { addError } from '/js/errors.js'
 import { addResult } from '/js/matchList.js'
@@ -93,7 +93,9 @@ export const runMatch = (p1, p2) => (dispatch, getState) => {
         const match = getState().get('match')
         if(match.get('winner') === undefined) {
             dispatch(requestMove())
-            .then(next)
+            .then(() => {
+                setTimeout(next, 1000)
+            })
             .catch(err => {
                 dispatch(addError(`Request Move Error: ${err}`))
             })

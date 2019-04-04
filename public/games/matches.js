@@ -1,4 +1,10 @@
+// Matches
+
+import {html} from '/modules/lit-html/lit-html.js'
+
 const getRandomInt = (max) => Math.floor(Math.random() * Math.floor(max));  
+
+export const gameName = "Matches"
 
 export const isValidMove = (state, action) => {
     const move = action.move
@@ -35,4 +41,17 @@ export const gameReducer = (state, action) => {
     }
 
     return state
+}
+
+function range(n) {
+    const res = []
+    for(let i=0; i<n; i++) res.push(i)
+    return res
+}
+
+export const gameTemplate = (match) => {
+    return html`
+        Remaining: ${range(match.get('game')).map(() => "| ")}<br>
+        Winner: ${match.get('winner')}
+    `
 }

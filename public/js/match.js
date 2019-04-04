@@ -50,7 +50,7 @@ export const requestMove = () => (dispatch, getState) =>{
         const move = json.move
         const action = playMove(move, state.player)
         if(isValidMove(_state, action)) dispatch(action)
-        else dispatch(addError(`Invalid Move: ${JSON.stringify(action)}`))
+        else throw `Invalid Move: ${JSON.stringify(action)}`
     })
 }
 

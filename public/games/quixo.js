@@ -16,16 +16,10 @@ const forbidden = {
     'S': [20, 21, 22, 23, 24]
 }
 const increments = {
-    'N': 5,
-    'S': -5,
-    'E': -1,
-    'W': 1
-}
-const limits = {
-    'N': [20, 21, 22, 23, 24],
-    'S': [0, 1, 2, 3, 4],
-    'E': [0, 5, 10, 15, 20],
-    'W': [4, 9, 14, 19, 24]
+    'N': -5,
+    'S': +5,
+    'E': 1,
+    'W': -1
 }
 const lines = [
     [ 0,  1,  2,  3,  4],
@@ -70,10 +64,11 @@ export const isValidMove = (state, action) => {
 
 const computeNextGame = (game, move, index) => {
     let pos
-    for(pos=move.cube; !limits[move.direction].includes(pos); pos += increments[move.direction]) {
+    for(pos=move.cube; !forbidden[move.direction].includes(pos); pos += increments[move.direction]) {
         game = game.set(pos, game.get(pos+increments[move.direction]))
     }
     game = game.set(pos, index)
+    return game
 }
 
 export const gameReducer = (state, action) => {
@@ -152,7 +147,7 @@ export const gameTemplate = (match) => {
             ${range(5).map(line => html`
                 <tr>
                     ${range(5).map(column => html`
-                        <td style="border: 1px solid black; width: 2em; height: 2em; text-align: center; vertical-align: middle">${display(game.get(line*3+column))}</td>
+                        <td style="border: 1px solid black; width: 2em; height: 2em; text-align: center; vertical-align: middle">${display(game.get(line*5+column))}</td>
                     `)}
                 </tr>
             `)}

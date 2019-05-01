@@ -11,6 +11,14 @@ export const playMove = (move, player) => {
     }
 }
 
+export const addBadMove = (move, player) => {
+    return {
+        type: 'ADD_BAD_MOVE',
+        move,
+        player
+    }
+}
+
 export const startMatch = (p1, p2) => {
     return {
         type: 'START_MATCH',
@@ -58,12 +66,14 @@ export const matchReducer = (state = undefined, action) => {
     switch (action.type) {
         case 'START_MATCH':
             if(state === undefined) {
+                badMoves = 
                 state = Map({
                     game: undefined,
                     moves: List(),
                     players: List(action.players),
                     player: action.players[0],
-                    winner: undefined
+                    winner: undefined,
+                    badMoves: Map(action.players.reduce((res, p) => {res[p]=0; return res;}, {}))
                 })
             }
             break;
@@ -75,7 +85,22 @@ export const matchReducer = (state = undefined, action) => {
                     moves: state.get('moves').push(Map({move: action.move, player: action.player, gameBefore: state.get('game')})),
                     players: state.get('players'),
                     player: state.get('player'),
-                    winner: state.get('winner')
+                    winner: state.get('winner'),
+                    badMoves: state.get('badMoves')
+                })
+            }
+            break;
+
+        case 'ADD_BAD_MOVE':
+            const badMoves = state.get('badMoves').get(action.player) + 1
+            if(state) {
+                state = Map({
+                    game: state.get('game'),
+                    moves: state.get('moves').push(Map({move: action.move, player: action.player, gameBefore: state.get('game'), badMove: true})),
+                    players: state.get('players'),
+                    player: state.get('player'),
+                    winner: state.get('winner'),
+                    badMoves: state.get('badMoves').set(action.player, badMoves)
                 })
             }
             break;

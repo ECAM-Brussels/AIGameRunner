@@ -72,6 +72,10 @@ const computeNextGame = (game, move, index) => {
 }
 
 export const gameReducer = (state, action) => {
+    const players = state.get('players')
+    const playerIndex = players.indexOf(action.player)
+    const otherIndex = (playerIndex + 1) % players.count()
+    const otherPlayer = players.get(otherIndex)
 
     switch(action.type) {
         case 'START_MATCH':
@@ -92,9 +96,6 @@ export const gameReducer = (state, action) => {
             break;
 
         case 'PLAY_MOVE':
-            const players = state.get('players')
-            const playerIndex = players.indexOf(action.player)
-            const otherIndex = (playerIndex + 1) % players.count()
             const nextGame = computeNextGame(state.get('game'), action.move, playerIndex)
 
             function check(indices) {
@@ -117,12 +118,18 @@ export const gameReducer = (state, action) => {
 
             winner = typeof winner === 'number' ? players.get(winner) : winner
 
-            const nextPlayer = winner !== undefined ? undefined : players.get(otherIndex)
+            const nextPlayer = winner !== undefined ? undefined : otherPlayer
 
             state = state
             .set('game', nextGame)
             .set('player', nextPlayer)
             .set('winner', winner)
+            break;
+
+        case 'ADD_BAD_MOVE':
+            const badMoves = state.get('badMoves').get(action.player)
+            state = state
+            .set('winner', badMoves > 2 ? otherPlayer : state.get('winner'))
             break;
     }
 

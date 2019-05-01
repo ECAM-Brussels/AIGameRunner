@@ -72,11 +72,18 @@ const computeNextGame = (game, move, index) => {
 }
 
 export const gameReducer = (state, action) => {
-    const players = state.get('players')
-    const playerIndex = players.indexOf(action.player)
-    const otherIndex = (playerIndex + 1) % players.count()
-    const otherPlayer = players.get(otherIndex)
-
+    let players
+    let playerIndex
+    let otherIndex
+    let otherPlayer
+    
+    if(state) {
+        players = state.get('players')
+        playerIndex = players.indexOf(action.player)
+        otherIndex = (playerIndex + 1) % players.count()
+        otherPlayer = players.get(otherIndex)
+    }
+    
     switch(action.type) {
         case 'START_MATCH':
             // game => List of 25 items (None, 0 or 1)

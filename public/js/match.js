@@ -4,11 +4,12 @@ import { addError } from '/js/errors.js'
 import { addResult } from '/js/matchList.js'
 import { fetchTimeout } from '/js/fetchTimeout.js'
 
-export const playMove = (move, player) => {
+export const playMove = (move, player, message) => {
     return {
         type: 'PLAY_MOVE',
         move,
-        player
+        player,
+        message
     }
 }
 
@@ -53,11 +54,12 @@ export const requestMove = () => (dispatch, getState) =>{
             players: state.players,
             you: state.player
         })
-    }, 60000) // 1 minute
+    }, 10000) // 10 secondes
     .then(response => response.json())
     .then(json => {
         const move = json.move
-        const action = playMove(move, state.player)
+        const message = json.message
+        const action = playMove(move, state.player, message)
         if(isValidMove(_state, action)) dispatch(action)
         else throw {error: "Bad Move", action}
     })
@@ -86,7 +88,8 @@ export const matchReducer = (state = undefined, action) => {
                     players: state.get('players'),
                     player: state.get('player'),
                     winner: state.get('winner'),
-                    badMoves: state.get('badMoves')
+                    badMoves: state.get('badMoves'),
+                    message: action.message ? `${action.player}: ${action.message}` : undefined
                 })
             }
             break;
@@ -125,15 +128,15 @@ export const runMatch = (p1, p2) => (dispatch, getState) => {
                 console.error(err)
                 if(err.error === "Time Out") {
                     dispatch(addBadMove(err.error, match.get('player')))
-                    setTimeout(next, 1000)
                 }
                 else if(err.error === "Bad Move") {
                     dispatch(addBadMove(err.action.move, err.action.player))
-                    setTimeout(next, 1000)
                 }
                 else {
                     dispatch(addError(`Request Move Error: ${err}`))
+                    dispatch(addBadMove(err, match.get('player')))
                 }
+                setTimeout(next, 1000)
             })
         }
         else {

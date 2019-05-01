@@ -6,8 +6,9 @@ export const gameDialogTemplate = match => html`
         <div class="mdc-dialog__container">
             <div class="mdc-dialog__surface">
                 <!-- Title cannot contain leading whitespace due to mdc-typography-baseline-top() -->
-                <h2 class="mdc-dialog__title" id="game-dialog-title">P1 vs P2</h2>
+                <h2 class="mdc-dialog__title" id="game-dialog-title">${match ? match.get('players').get(0) : ''} vs ${match ? match.get('players').get(1) : ''}</h2>
                 <div class="mdc-dialog__content">
+                    ${match ? html`<p>${match.get('message')}</p>` : ''}
                     ${match ? gameTemplate(match) : ''}
                 </div>
             </div>

@@ -2,6 +2,7 @@ import { gameReducer, isValidMove } from '/games/current.js'
 import { List, Map } from '/modules/immutable/dist/immutable.es.js';
 import { addError } from '/js/errors.js'
 import { addResult } from '/js/matchList.js'
+import { fetchTimeout } from '/js/fetchTimeout.js'
 
 export const playMove = (move, player) => {
     return {
@@ -41,7 +42,7 @@ export const requestMove = () => (dispatch, getState) =>{
     const player = participants.get(state.player).toJS()
     const url = `http://${player.ip}:${player.port}/move`
 
-    return fetch(url, {
+    return fetchTimeout(url, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -52,13 +53,13 @@ export const requestMove = () => (dispatch, getState) =>{
             players: state.players,
             you: state.player
         })
-    })
+    }, 60000) // 1 minute
     .then(response => response.json())
     .then(json => {
         const move = json.move
         const action = playMove(move, state.player)
         if(isValidMove(_state, action)) dispatch(action)
-        else throw `Invalid Move: ${JSON.stringify(action)}`
+        else throw {error: "Bad Move", action}
     })
 }
 
@@ -66,7 +67,6 @@ export const matchReducer = (state = undefined, action) => {
     switch (action.type) {
         case 'START_MATCH':
             if(state === undefined) {
-                badMoves = 
                 state = Map({
                     game: undefined,
                     moves: List(),
@@ -123,7 +123,17 @@ export const runMatch = (p1, p2) => (dispatch, getState) => {
             })
             .catch(err => {
                 console.error(err)
-                dispatch(addError(`Request Move Error: ${err}`))
+                if(err.error === "Time Out") {
+                    dispatch(addBadMove(err.error, match.get('player')))
+                    setTimeout(next, 1000)
+                }
+                else if(err.error === "Bad Move") {
+                    dispatch(addBadMove(err.action.move, err.action.player))
+                    setTimeout(next, 1000)
+                }
+                else {
+                    dispatch(addError(`Request Move Error: ${err}`))
+                }
             })
         }
         else {

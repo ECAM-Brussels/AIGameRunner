@@ -71,6 +71,8 @@ La clé `game` contient le plateau de jeu qui comporte 25 cubes numérotés comm
 	</tr>
 </table>
 
+Les valeurs sont `None` pour les cubes blancs, `0` pour les cubes du premier joueur (1<sup>er</sup> dans la liste `players`), `1` pour les cubes du deuxième joueur.
+
 La clé `move` contient la liste de tout les mouvements joués depuis le début de la partie.
 
 Cette route devra répondre par un `JSON` comme celui-ci:

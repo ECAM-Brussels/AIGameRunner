@@ -10,7 +10,7 @@ Votre IA doit être un serveur web basé sur ceux que l'on trouve dans le réper
 
 Ce serveur n'a qu'une route, `move`. Cette route recevra le `body` suivant:
 
-```json
+```python
 {
 	"game": [1, 0, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None, None],
 	"moves": [],
@@ -77,7 +77,7 @@ La clé `moves` contient la liste de tout les mouvements joués depuis le début
 
 Cette route devra répondre par un `JSON` comme celui-ci:
 
-```json
+```python
 {
 	"move": {
 		"cube": 0,
@@ -108,8 +108,9 @@ Votre projet doit être remis via **GitHub**. Nous vous conseillons de créer un
 - La route `move` renvoie un `JSON` correspondant aux spécifications: **2**
 - L'état du jeu intervient dans la génération du `move`: **2**
 - Le code est convenable (noms des variables et fonctions, commentaires, ...): **2**
-- Le fichier `README.md` explique la stratégie et les bibliothèques utilisées: **3**
-- Durant le tournoi:
+- Le fichier `README.md` explique la stratégie et les bibliothèques utilisées: **2**
+- La stratégie utilisée est avancée/originale: **1**
+- Durant le championnat:
 	- L'IA est mieux classée que Random: **2**
 	- L'IA génère moins de 3 `Bad Move` par partie (en moyenne): **0.5**
 	- L'IA génère moins de 2 `Bad Move` par partie (en moyenne): **0.5**

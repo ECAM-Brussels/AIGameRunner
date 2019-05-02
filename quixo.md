@@ -24,7 +24,7 @@ La clé `game` contient le plateau de jeu qui comporte 25 cubes numérotés comm
 <table>
 	<tr>
 		<td></td>
-		<td colspan="5">N</td>
+		<td colspan="5" align="center">N</td>
 		<td></td>
 	</tr>
 	<tr>
@@ -66,7 +66,7 @@ La clé `game` contient le plateau de jeu qui comporte 25 cubes numérotés comm
 	</tr>
 	<tr>
 		<td></td>
-		<td colspan="5">N</td>
+		<td colspan="5" align="center">S</td>
 		<td></td>
 	</tr>
 </table>

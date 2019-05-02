@@ -116,6 +116,6 @@ Votre projet doit être remis via **GitHub**. Nous vous conseillons de créer un
 	- L'IA génère moins de 2 `Bad Move` par partie (en moyenne): **0.5**
 	- L'IA génère moins de 1 `Bad Move` par partie (en moyenne): **0.5**
 	- L'IA n'a généré aucun `Bad Move`: **1**
-	- Bonus classement (1<sup>er</sup>: **2.5**, 2<sup>e</sup>: **2**, 3<sup>e</sup>: **1.5**, 4<sup>e</sup>: **1**, 5<sup>e</sup>: **0.5**,)
+	- Bonus classement (1<sup>er</sup>: **2.5**, 2<sup>e</sup>: **2**, 3<sup>e</sup>: **1.5**, 4<sup>e</sup>: **1**, 5<sup>e</sup>: **0.5**)
 
 **En cas de plagiat entre groupe, tout les étudiants impliqués auront 0**

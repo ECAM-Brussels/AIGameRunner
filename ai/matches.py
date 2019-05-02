@@ -23,5 +23,5 @@ if __name__ == "__main__":
     else:
         port=8080
 
-    cherrypy.config.update({'server.socket_port': port})
+    cherrypy.config.update({'server.socket_host': '0.0.0.0', 'server.socket_port': port})
     cherrypy.quickstart(Server())

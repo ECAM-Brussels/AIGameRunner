@@ -14,8 +14,8 @@ Ce serveur n'a qu'une route, `move`. Cette route recevra le `body` suivant:
 {
 	"game": [1, 0, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null],
 	"moves": [],
-	"players": ['LUR', 'LRG'],
-	"you": 'LUR'
+	"players": ["LUR", "LRG"],
+	"you": "LUR"
 }
 ```
 
@@ -35,7 +35,7 @@ Cette route devra répondre par un `JSON` comme celui-ci:
 {
 	"move": {
 		"cube": 0,
-		"direction": 'S'
+		"direction": "S"
 	},
 	"message": "I'm Smart"
 }

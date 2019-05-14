@@ -40,6 +40,7 @@ main {
 .row > * {
 	margin-right: 1em;
 	flex-grow: 1;
+	width: 0;
 }
 
 .row > :last-child {
@@ -48,19 +49,17 @@ main {
 
 #fabs {
 	position: fixed;
-	right: 15px;
-	bottom: 15px;
+	bottom: 20px;
+	right: 20px;
+	display: flex;
+	flex-direction: column-reverse;
 }
 
 #fabs .mdc-fab {
-	margin-bottom: 15px;
+	margin-top: 15px;
 }
 
-#fabs .mdc-fab:last-child {
-	margin-bottom: 0;
-}
-
-#add-participant-form, #participantList, #matchList {
+#add-participant-form, #participantList, #matchList, #match-card, #messages {
 	background-color: white;
 	margin-bottom: 1rem;
 }
@@ -79,4 +78,16 @@ main {
 
 #matchList li {
 	height: 5em;
+}
+
+#match-card {
+	padding: 1em;
+}
+
+#messages {
+	padding: 1em;
+}
+
+.winner {
+	font-weight: bold;
 }

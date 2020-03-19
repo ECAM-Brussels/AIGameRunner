@@ -63,3 +63,5 @@ typings/
 tictactoe.py
 quixo.py
 current.js
+
+__pycache__

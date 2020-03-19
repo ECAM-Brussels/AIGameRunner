@@ -1,5 +1,5 @@
 import {html} from '/modules/lit-html/lit-html.js'
-import {gameTemplate} from '/games/current.js'
+import {gameTemplate} from '/game.js'
 
 export const gameDialogTemplate = match => html`
     <div class="mdc-dialog ${match ? 'mdc-dialog--open' : ''}" role="alertdialog" aria-modal="true" aria-labelledby="game-dialog-title">

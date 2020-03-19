@@ -4,9 +4,9 @@ import {matchListTemplate} from '/js/matchListTemplate.js'
 import {addParticipant} from '/js/participants.js'
 import {store} from '/js/store.js'
 import '/js/mdcTextField.js'
-import { gameName } from '/games/current.js'
+import { gameName } from '/game.js'
 import { runRemainingMatches, stopMatch } from '/js/match.js'
-import {gameTemplate} from '/games/current.js'
+import {gameTemplate} from '/game.js'
 
 export const mainTemplate = state => {
 	const match = state.get('match')

@@ -1,4 +1,4 @@
-import { gameReducer, isValidMove } from '/games/current.js'
+import { gameReducer, isValidMove } from '/game.js'
 import { List, Map } from '/modules/immutable/dist/immutable.es.js';
 import { addError } from '/js/errors.js'
 import { addResult, matchList } from '/js/matchList.js'

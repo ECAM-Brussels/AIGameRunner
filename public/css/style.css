@@ -91,3 +91,7 @@ main {
 .winner {
 	font-weight: bold;
 }
+
+a.material-icons {
+	text-decoration: none;
+}

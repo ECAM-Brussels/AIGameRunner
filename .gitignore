@@ -65,3 +65,5 @@ quixo.py
 current.js
 
 __pycache__
+.vscode
+subscribe.py

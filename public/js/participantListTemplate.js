@@ -11,7 +11,17 @@ export const participantListTemplate = participants => html`
 					<span class="mdc-list-item__secondary-text">${participant.get('ip')}:${participant.get('port')}</span>
 				</span>
 				<span class="mdc-list-item__meta material-icons" style="cursor: pointer" @click="${() => {
-                    store.dispatch(removeParticipant(participant.get('name')))
+						fetch('/remove', {
+							method: 'POST',
+							headers: {
+								'Accept': 'application/json',
+								'Content-Type': 'application/json'
+							},
+							body: JSON.stringify({name: participant.get('name')})
+						})
+						.then(() => {
+							store.dispatch(removeParticipant(participant.get('name')))
+						})
                 }}">cancel</span>
 			</li>
 		`).valueSeq().toArray()}

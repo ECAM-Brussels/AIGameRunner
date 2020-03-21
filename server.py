@@ -7,7 +7,7 @@ import threading
 import time
 import socket
 import json
-from client import addClient, loadClients, clearClients, clientsList
+from client import addClient, loadClients, clearClients, clientsList, removeClient
 from transmitJSON import sendJSON, recvJSON
 
 def getRootDir():
@@ -53,6 +53,13 @@ class Server:
     @cherrypy.tools.json_out()
     def clients(self):
         return clientsList()
+
+    @cherrypy.expose
+    @cherrypy.tools.json_out()
+    @cherrypy.tools.json_in()
+    def remove(self):
+        data = cherrypy.request.json
+        removeClient(data['name'])
 
 
 if __name__ == '__main__':

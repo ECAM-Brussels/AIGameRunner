@@ -62,7 +62,9 @@ typings/
 
 tictactoe.py
 quixo.py
-current.js
+avalam.py
+
+clients.json
 
 __pycache__
 .vscode

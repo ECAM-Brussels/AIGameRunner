@@ -14,12 +14,23 @@ export const playMove = (move, player) => {
 	}
 }
 
-export const addBadMove = (move, player) => {
-	return {
+export const addBadMove = (move, player) => (dispatch, getState) => {
+	const match = getState().get('match')
+	const badMoves = match.get('badMoves').get(player)
+
+	console.log(badMoves)
+
+	if(badMoves < 3) dispatch({
 		type: 'ADD_BAD_MOVE',
 		move,
 		player
-	}
+	})
+	else {
+		dispatch({
+			type: 'ABANDON_MATCH',
+			player
+		})
+	} 
 }
 
 export const startMatch = (p1, p2) => {
@@ -41,7 +52,7 @@ export const stopMatch = () => {
 	}
 }
 
-export const requestMove = () => (dispatch, getState) =>{
+export const requestMove = () => (dispatch, getState) => {
 	const _state = getState().get('match')
 	const participants = getState().get('participants')
 	if(_state === null) return
@@ -124,6 +135,12 @@ export const matchReducer = (state = undefined, action) => {
 		case 'STOP_MATCH':
 			state = state.set("winner", null).set("interrupted", true)
 			break;
+
+		case 'ABANDON_MATCH':
+			const players = state.get('players')
+			const winner = players.get((players.indexOf(action.player)+1)%players.count())
+			state = state.set('winner', winner).set('abandonned', true)
+			break
 	}
 
 	state = gameReducer(state, action)

@@ -3,7 +3,7 @@ import { addError } from './errors.js'
 
 // Add Participant Action Creator
 // ! Use the thunk Middleware
-export const addParticipant = (name, ip, port) => (dispatch, getState) => {
+export const addParticipant = (name, ip, port, matricules) => (dispatch, getState) => {
 	if(getState().get('participants').has(name)) {
 		dispatch(addError(`Name ${name} already used`))
 		return
@@ -15,6 +15,7 @@ export const addParticipant = (name, ip, port) => (dispatch, getState) => {
 			name,
 			ip,
 			port,
+			matricules,
 			points: 0,
 			nbMatch: 0,
 			badMoves: 0

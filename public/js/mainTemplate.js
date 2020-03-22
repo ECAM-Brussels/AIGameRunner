@@ -21,24 +21,6 @@ export const mainTemplate = state => {
 	</header>
 	<div id="container" class="mdc-top-app-bar--fixed-adjust">
 		<main>
-			<form id="add-participant-form" class="mdc-elevation--z6" @submit="${(event) => {
-				const name = event.target.querySelector('mdc-text-field[name="name"]')
-				const ip = event.target.querySelector('mdc-text-field[name="ip"]')
-				const port = event.target.querySelector('mdc-text-field[name="port"]')
-				store.dispatch(addParticipant(name.value, ip.value, port.value))
-				name.value = ""
-				ip.value = ""
-				port.value = ""
-				name.focus()
-				event.preventDefault()
-			}}">
-				<mdc-text-field label="Name" name="name"></mdc-text-field>
-				<mdc-text-field label="IP" name="ip"></mdc-text-field>
-				<mdc-text-field label="Port" name="port"></mdc-text-field>
-				<button class="mdc-button mdc-button--raised" type="submit">
-					<span class="mdc-button__label">Add Participant</span>
-				</button>
-			</form>
 			<div class="row">
 				${participantListTemplate(state.get('participants'))}
 				${matchListTemplate(state)}

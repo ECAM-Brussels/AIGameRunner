@@ -57,7 +57,21 @@ La clé `message` est optionnelle. Les message sont affichés durant la partie.
 
 Si votre `move` ne respecte pas le format, n'est pas autorisé par les règles ou n'est pas renvoyé dans les 10 secondes, il sera considéré comme un `Bad Move`. Si vous faites 3 `Bad Moves` dans une partie vous perdez par abandon.
 
-Le serveur aura aussi une route `ping` qui doit répondre quelque chose. Elle sera utilisée pour tester la connectivité avec le superviseur de partie.
+Le serveur aura aussi une route `ping` qui doit répondre quelque chose. Elle sera utilisée pour tester la connectivité avec [README.md](le superviseur de partie).
+
+## Inscription
+
+Le jour de la compétition, il faudra vous inscrire auprès du [README.md](superviseur de partie).
+
+Le superviseur de partie accepte des connexions TCP sur le port 3001 et attend un JSON du format suivant:
+
+```json
+{
+	"matricules": ["11111", "22222"],
+	"port": 1234,
+	"name": "Terminator"
+}
+```
 
 ## Modalités de remise
 

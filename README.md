@@ -24,3 +24,15 @@ python server.py game
 
 Where `game` must be replaced by one of the games defined in `/public/games`
 
+## Subscribe
+
+Send a TCP message to the 3001 port with a JSON content like:
+
+```json
+{
+	"matricules": ["11111", "22222"],
+	"port": 1234,
+	"name": "Terminator"
+}
+```
+

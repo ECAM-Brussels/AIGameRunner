@@ -20,7 +20,7 @@ export const addBadMove = (move, player) => (dispatch, getState) => {
 
 	console.log(badMoves)
 
-	if(badMoves < 3) dispatch({
+	if(badMoves < 2) dispatch({
 		type: 'ADD_BAD_MOVE',
 		move,
 		player
@@ -28,6 +28,7 @@ export const addBadMove = (move, player) => (dispatch, getState) => {
 	else {
 		dispatch({
 			type: 'ABANDON_MATCH',
+			move,
 			player
 		})
 	} 

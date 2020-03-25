@@ -17,6 +17,10 @@ class Server:
         print(body)
         return {"move": 1}
 
+    @cherrypy.expose
+    def ping(self):
+        return "pong"
+
 if __name__ == "__main__":
     if len(sys.argv) > 1:
         port=int(sys.argv[1])

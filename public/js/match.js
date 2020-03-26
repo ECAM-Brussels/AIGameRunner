@@ -6,6 +6,8 @@ import { fetchTimeout } from '/js/fetchTimeout.js'
 import { addMessage } from '/js/messages.js'
 import { updateStats } from '/js/participants.js'
 
+const delay = 2000  // delay between move requests in milliseconds
+
 export const playMove = (move, player) => {
 	return {
 		type: 'PLAY_MOVE',
@@ -156,7 +158,7 @@ export const runMatch = (p1, p2) => (dispatch, getState) => {
 			if(match.get('winner') === undefined) {
 				dispatch(requestMove())
 				.then(() => {
-					setTimeout(next, 10)
+					setTimeout(next, delay)
 				})
 				.catch(err => {
 					console.error(err)
@@ -170,7 +172,7 @@ export const runMatch = (p1, p2) => (dispatch, getState) => {
 						dispatch(addError(`Request Move Error: ${err}`))
 						dispatch(addBadMove(err, match.get('player')))
 					}
-					setTimeout(next, 10)
+					setTimeout(next, delay)
 				})
 			}
 			else {

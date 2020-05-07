@@ -77,7 +77,7 @@ Le superviseur de partie accepte des connexions TCP sur le port 3001 et attend u
 
 Le projet est à réaliser seul ou par binôme.
 
-Votre projet doit être remis via **GitHub**. Nous vous conseillons de créer une *repository* séparée de celle-ci. Elle devra contenir au minimum:
+Votre projet doit être remis via **GitHub** pour le **8 mai**. Nous vous conseillons de créer une *repository* séparée de celle-ci. Elle devra contenir au minimum:
 - Le script python de votre Server IA
 - Un `README.md` expliquant la stratégie et les bibliothèques utilisées (Et les noms des deux étudiants si fait en binôme)
 

@@ -4,7 +4,7 @@
   "description": "Web Client that organize match between IA servers",
   "main": "server.py",
   "scripts": {
-    "start": "python3 ./server.py",
+    "start": "python ./server.py",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -20,6 +20,7 @@
   "dependencies": {
     "immutable": "^4.0.0-rc.12",
     "lit-html": "^1.0.0",
-    "redux": "^4.0.1"
+    "redux": "^4.0.1",
+    "sanitize-html": "^1.23.0"
   }
 }

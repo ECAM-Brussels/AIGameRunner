@@ -95,3 +95,7 @@ main {
 a.material-icons {
 	text-decoration: none;
 }
+
+.message > p > img {
+	max-width: 100%;
+}

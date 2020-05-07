@@ -1,4 +1,5 @@
 import {html} from '/modules/lit-html/lit-html.js'
+import {unsafeHTML} from '/modules/lit-html/directives/unsafe-html.js';
 import {participantListTemplate} from '/js/participantListTemplate.js'
 import {matchListTemplate} from '/js/matchListTemplate.js'
 import {addParticipant} from '/js/participants.js'
@@ -7,6 +8,15 @@ import '/js/mdcTextField.js'
 import { gameName } from '/game.js'
 import { runRemainingMatches, stopMatch } from '/js/match.js'
 import {gameTemplate} from '/game.js'
+
+const sanitize_option = {
+	allowedTags: [ 'b', 'i', 'em', 'strong', 'span', 'div', 'img'],
+	allowedAttributes: {
+		'*': ['style'],
+		'img': ['src']
+	},
+	selfClosing: [ 'img' ]
+ }
 
 export const mainTemplate = state => {
 	const match = state.get('match')
@@ -42,7 +52,7 @@ export const mainTemplate = state => {
 					${state.get("messages").reverse().slice(0, 100).map(message => html`
 						<div class="message">
 							<h5>${message.get("name")}:</h5>
-							<p>${message.get("msg")}</p>
+							<p>${unsafeHTML(sanitizeHtml(message.get("msg"), sanitize_option))}</p>
 						</div>
 					`)}
 				</div>

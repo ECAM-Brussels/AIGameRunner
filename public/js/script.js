@@ -22,22 +22,38 @@ document.addEventListener("DOMContentLoaded", event => {
 	//store.dispatch(addParticipant('Player 1', 'localhost', '8080', ['lur']))
 	//store.dispatch(addParticipant('Player 2', 'localhost', '8081', ['lrg']))
 
-	setInterval(() => {
-		fetch('/clients')
-		.then(response => response.json())
-		.then(data => {
-			const participants = store.getState().get('participants').toJS()
-			data.forEach(client => {
-				if(participants[client.name] === undefined) {
-					store.dispatch(addParticipant(client.name, client.ip, String(client.port), client.matricules))
-				}
-			})
+	let clientFetchingHandle = null
 
-			Object.keys(participants).forEach(name => {
-				if(!data.map(client => client.name).includes(name)) {
-					store.dispatch(removeParticipant(name))
-				}
+	window.startClientFetching = () => {
+		if(clientFetchingHandle !== null) return
+
+		clientFetchingHandle = setInterval(() => {
+			fetch('/clients')
+			.then(response => response.json())
+			.then(data => {
+				const participants = store.getState().get('participants').toJS()
+				data.forEach(client => {
+					if(participants[client.name] === undefined) {
+						store.dispatch(addParticipant(client.name, client.ip, String(client.port), client.matricules))
+					}
+				})
+
+				Object.keys(participants).forEach(name => {
+					if(!data.map(client => client.name).includes(name)) {
+						store.dispatch(removeParticipant(name))
+					}
+				})
 			})
-		})
-	}, 5000)
+		}, 5000)
+	}
+
+	window.stopClientFetching = () => {
+		if(clientFetchingHandle !== null) {
+			clearInterval(clientFetchingHandle)
+			clientFetchingHandle = null
+		}
+	}
+	
+
+	startClientFetching()
 })

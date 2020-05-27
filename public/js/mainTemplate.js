@@ -27,6 +27,11 @@ export const mainTemplate = state => {
 				<a href="#" class="material-icons mdc-top-app-bar__navigation-icon">menu</a>
 				<span class="mdc-top-app-bar__title">AI Game Runner: ${gameName}</span>
 			</section>
+			<section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-end" role="toolbar">
+				<button class="mdc-button mdc-top-app-bar__action-item" @click=${() => {stopClientFetching()}} >
+					<span class="mdc-button__label">Stop Inscription</span>
+				</button>
+			</section>
 		</div>
 	</header>
 	<div id="container" class="mdc-top-app-bar--fixed-adjust">

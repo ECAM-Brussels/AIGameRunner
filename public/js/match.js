@@ -6,7 +6,7 @@ import { fetchTimeout } from '/js/fetchTimeout.js'
 import { addMessage } from '/js/messages.js'
 import { updateStats } from '/js/participants.js'
 
-const delay = 2000  // delay between move requests in milliseconds
+const delay = 500  // delay between move requests in milliseconds
 
 export const playMove = (move, player) => {
 	return {
@@ -75,7 +75,7 @@ export const requestMove = () => (dispatch, getState) => {
 			players: state.players,
 			you: state.player
 		})
-	}, 10000) // 10 secondes
+	}, 11000) // 11 secondes
 	.then(response => response.json())
 	.then(json => {
 		const move = json.move
@@ -161,9 +161,10 @@ export const runMatch = (p1, p2) => (dispatch, getState) => {
 					setTimeout(next, delay)
 				})
 				.catch(err => {
-					console.error(err)
+					//console.error(err)
 					if(err.error === "Time Out") {
 						dispatch(addBadMove(err.error, match.get('player')))
+						dispatch(addMessage("Organisateur", `<span style="color: red;">${match.get('player')} play faster !</span>`))
 					}
 					else if(err.error === "Bad Move") {
 						dispatch(addBadMove(err.action.move, err.action.player))

@@ -10,7 +10,7 @@ export const messages = (state = List(), action) => {
 	switch (action.type) {
 		case 'ADD_MESSAGE':
 			state = state.push(Map({name: action.name, msg: action.msg}))
-			if(state.count() > 100) {
+			if(state.count() > 20) {
 				state = state.rest()
 			}
 			return state

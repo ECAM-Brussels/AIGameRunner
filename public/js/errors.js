@@ -2,7 +2,6 @@ import { List, Map } from '/modules/immutable/dist/immutable.es.js'
 import { addMessage } from '/js/messages.js'
 
 export const addError = (msg) => (dispatch, getState) => {
-	dispatch(addMessage("Organisateur", msg))
 	dispatch({
 		type: 'ADD_ERROR',
 		msg

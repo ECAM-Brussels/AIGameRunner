@@ -168,10 +168,12 @@ export const runMatch = (p1, p2) => (dispatch, getState) => {
 					}
 					else if(err.error === "Bad Move") {
 						dispatch(addBadMove(err.action.move, err.action.player))
+						dispatch(addMessage("Organisateur", `<span style="color: red;">${match.get('player')} play by the rules !</span>`))
 					}
 					else {
 						dispatch(addError(`Request Move Error: ${err}`))
 						dispatch(addBadMove(err, match.get('player')))
+						dispatch(addMessage("Organisateur", `<div style="color: red;">${match.get('player')}, you have a problem: </div><div style="font-weight: bold;">${err}</div>`))
 					}
 					setTimeout(next, delay)
 				})

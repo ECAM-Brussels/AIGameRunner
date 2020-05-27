@@ -1,3 +1,14 @@
+@import url('https://fonts.googleapis.com/css2?family=Bangers&display=swap');
+
+.action {
+	font-family: 'Bangers', cursive;
+	font-size: 1.5em;
+}
+
+.red {
+	color: red;
+}
+
 * {
 	box-sizing: border-box;
 }

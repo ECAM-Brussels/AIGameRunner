@@ -181,10 +181,10 @@ export const runMatch = (p1, p2) => (dispatch, getState) => {
 			}
 			else {
 				if(match.get("winner") === null) {
-					dispatch(addMessage("Organisateur", "Match nul"))
+					dispatch(addMessage("Organisateur", '<span class="action red">Match nul</span>'))
 				}
 				else {
-					dispatch(addMessage("Organisateur", "Vainqueur: "+match.get("winner")))
+					dispatch(addMessage("Organisateur", `<span class="action">Vainqueur:</span> <span class="action red">${match.get("winner")}</span>`))
 				}
 
 				dispatch(addResult(match))
@@ -194,7 +194,7 @@ export const runMatch = (p1, p2) => (dispatch, getState) => {
 			}
 		}
 		
-		dispatch(addMessage("Organisateur", p1+" contre "+p2))
+		dispatch(addMessage("Organisateur", `<span class="action red">${p1}</span> <span class="action" style="font-size: 2.5em;">VS</span> <span class="action red">${p2}</span>`))
 		dispatch(startMatch(p1, p2))
 		next()
 	})

@@ -10,9 +10,9 @@ import { runRemainingMatches, stopMatch } from '/js/match.js'
 import {gameTemplate} from '/game.js'
 
 const sanitize_option = {
-	allowedTags: [ 'b', 'i', 'em', 'strong', 'span', 'div', 'img'],
+	allowedTags: [ 'b', 'i', 'em', 'strong', 'span', 'div', 'img', 'br'],
 	allowedAttributes: {
-		'*': ['style'],
+		'*': ['style', 'class'],
 		'img': ['src']
 	},
 	selfClosing: [ 'img' ]

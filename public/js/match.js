@@ -22,18 +22,19 @@ export const addBadMove = (move, player) => (dispatch, getState) => {
 
 	console.log(badMoves)
 
-	if(badMoves < 2) dispatch({
+	dispatch({
 		type: 'ADD_BAD_MOVE',
 		move,
 		player
 	})
-	else {
+
+	if(badMoves >= 2) {
 		dispatch({
 			type: 'ABANDON_MATCH',
 			move,
 			player
 		})
-	} 
+	}
 }
 
 export const startMatch = (p1, p2) => {

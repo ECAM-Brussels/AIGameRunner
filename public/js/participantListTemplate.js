@@ -8,7 +8,7 @@ export const participantListTemplate = participants => html`
 			<li class="mdc-list-item">
 				<span class="mdc-list-item__text">
 					<span class="mdc-list-item__primary-text">${participant.get('name')} <small>(${participant.get('points')}, ${participant.get('nbMatch') === 0 ? '-' : participant.get('badMoves') / participant.get('nbMatch') })</small></span>
-					<span class="mdc-list-item__secondary-text">${participant.get('ip')}:${participant.get('port')}</span>
+					<span class="mdc-list-item__secondary-text">${participant.get('ip')}:${participant.get('port')} [${participant.get('matricules').join(', ')}]</span>
 				</span>
 				<span class="mdc-list-item__meta material-icons" style="cursor: pointer" @click="${() => {
 						fetch('/remove', {

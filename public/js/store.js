@@ -45,4 +45,4 @@ const reducer = (state = Map(), action) => {
 
 export const store = createStore(reducer, applyMiddleware(thunk, logger))
 
-store.subscribe(() => localStorage.setItem('state', JSON.stringify(store.getState())))
+//store.subscribe(() => localStorage.setItem('state', JSON.stringify(store.getState())))

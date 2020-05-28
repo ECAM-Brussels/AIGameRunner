@@ -10,13 +10,25 @@ import { runRemainingMatches, stopMatch } from '/js/match.js'
 import {gameTemplate} from '/game.js'
 
 const sanitize_option = {
-	allowedTags: [ 'b', 'i', 'em', 'strong', 'span', 'div', 'img', 'br'],
+	allowedTags: [ 'b', 'i', 'em', 'strong', 'span', 'div', 'br'],
 	allowedAttributes: {
-		'*': ['style', 'class'],
-		'img': ['src']
+		'*': ['style', 'class']
 	},
 	selfClosing: [ 'img' ]
- }
+}
+
+function download(filename, text) {
+	var element = document.createElement('a');
+	element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+	element.setAttribute('download', filename);
+ 
+	element.style.display = 'none';
+	document.body.appendChild(element);
+ 
+	element.click();
+ 
+	document.body.removeChild(element);
+}
 
 export const mainTemplate = state => {
 	const match = state.get('match')
@@ -68,8 +80,8 @@ export const mainTemplate = state => {
 		<button class="mdc-fab" aria-label="Run All" @click="${() => {store.dispatch(runRemainingMatches())}}">
 			<span class="mdc-fab__icon material-icons">play_arrow</span>
 		</button>
-		<a class="mdc-fab" aria-label="Export JSON" href="${'data:text/plain;charset=utf-8,' + JSON.stringify(state.toJS())}" download="state.json">
+		<button class="mdc-fab" aria-label="Run All" @click="${() => {download(state.json, JSON.stringify(state.toJS()))}}">
 			<span class="mdc-fab__icon material-icons">get_app</span>
-		</a>
+		</button>
 	</div>
 `}

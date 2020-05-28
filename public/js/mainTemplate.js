@@ -10,9 +10,10 @@ import { runRemainingMatches, stopMatch } from '/js/match.js'
 import {gameTemplate} from '/game.js'
 
 const sanitize_option = {
-	allowedTags: [ 'b', 'i', 'em', 'strong', 'span', 'div', 'br'],
+	allowedTags: [ 'b', 'i', 'em', 'strong', 'span', 'div', 'br', 'img'],
 	allowedAttributes: {
-		'*': ['style', 'class']
+		'*': ['style', 'class'],
+		'img': ['src']
 	},
 	selfClosing: [ 'img' ]
 }
@@ -80,7 +81,7 @@ export const mainTemplate = state => {
 		<button class="mdc-fab" aria-label="Run All" @click="${() => {store.dispatch(runRemainingMatches())}}">
 			<span class="mdc-fab__icon material-icons">play_arrow</span>
 		</button>
-		<button class="mdc-fab" aria-label="Run All" @click="${() => {download(state.json, JSON.stringify(state.toJS()))}}">
+		<button class="mdc-fab" aria-label="Run All" @click="${() => {download('state.json', JSON.stringify(state.toJS()))}}">
 			<span class="mdc-fab__icon material-icons">get_app</span>
 		</button>
 	</div>

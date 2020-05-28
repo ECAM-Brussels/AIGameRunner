@@ -13,6 +13,24 @@
 </head>
 <body>
 	<div id="slot" class="mdc-typography"></div>
+	<script>
+		async function init() {
+			if(!('serviceWorker' in navigator)) {
+				return
+			}
+
+			const registration = await navigator.serviceWorker.register("/sw.js")
+			registration.onupdatefound = () => {
+				console.log("Installing new service worker...")
+				const sw = registration.installing
+				registration.installing.onstatechange = () => {
+					console.log(sw.state)
+				}
+			}
+		}
+
+		init()
+	</script>
 	<script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
 	<script src="/js/script.js" type="module"></script>
 </body>

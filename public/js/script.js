@@ -8,7 +8,8 @@ document.addEventListener("DOMContentLoaded", event => {
 
 	store.subscribe(() => {render(mainTemplate(store.getState()), document.getElementById('slot'))})
 
-	const state = JSON.parse(localStorage.getItem('state'))
+	//const state = JSON.parse(localStorage.getItem('state'))
+	const state
 	console.log(state)
 	if(state && state.participants) {
 		Object.keys(state.participants).map(name => {

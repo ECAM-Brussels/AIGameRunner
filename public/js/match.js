@@ -6,7 +6,7 @@ import { fetchTimeout } from '/js/fetchTimeout.js'
 import { addMessage } from '/js/messages.js'
 import { updateStats } from '/js/participants.js'
 
-const delay = 500  // delay between move requests in milliseconds
+const delay = 1000  // delay between move requests in milliseconds
 
 export const playMove = (move, player) => {
 	return {
@@ -76,7 +76,7 @@ export const requestMove = () => (dispatch, getState) => {
 			players: state.players,
 			you: state.player
 		})
-	}, 11000) // 11 secondes
+	}, 10000) // 10 secondes
 	.then(response => response.json())
 	.then(json => {
 		const move = json.move

@@ -1,6 +1,7 @@
 import {html} from '/modules/lit-html/lit-html.js'
 import {removeParticipant} from '/js/participants.js'
 import {store} from '/js/store.js'
+import {runPlayerMatches} from '/js/match.js'
 
 export const participantListTemplate = participants => html`
 	<ul id="participantList" class="mdc-list mdc-list--two-line mdc-elevation--z4">
@@ -22,7 +23,10 @@ export const participantListTemplate = participants => html`
 						.then(() => {
 							store.dispatch(removeParticipant(participant.get('name')))
 						})
-                }}">cancel</span>
+					}}">cancel</span>
+					<span class="mdc-list-item__meta material-icons" style="cursor: pointer" @click="${() => {
+						store.dispatch(runPlayerMatches(participant.get('name')))
+					}}">play_arrow</span>
 			</li>
 		`).valueSeq().toArray()}
 	</ul>

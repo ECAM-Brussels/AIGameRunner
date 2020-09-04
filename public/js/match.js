@@ -6,7 +6,7 @@ import { fetchTimeout } from '/js/fetchTimeout.js'
 import { addMessage } from '/js/messages.js'
 import { updateStats } from '/js/participants.js'
 
-const delay = 1000  // delay between move requests in milliseconds
+const delay = 100  // delay between move requests in milliseconds
 
 export const playMove = (move, player) => {
 	return {
@@ -216,4 +216,27 @@ export const runRemainingMatches = () => (dispatch, getState) => {
 			return dispatch(runMatch(P1, P2))
 		})
 	}
+}
+
+export const runPlayerMatches = (player) => (dispatch, getState) => {
+	const state = getState()
+	const participants = state.get('participants')
+
+	let promise = Promise.resolve()
+
+	for(let opponent of participants.values()) {
+		const name = opponent.get('name')
+		if(name !== player) {
+			promise = promise.finally(() => {
+				console.log(player, 'vs', name)
+				return dispatch(runMatch(player, name))
+			})
+			promise = promise.finally(() => {
+				console.log(name, 'vs', player)
+				return dispatch(runMatch(name, player))
+			})
+		}
+	}
+
+	console.log(`hello ${player}`)
 }
